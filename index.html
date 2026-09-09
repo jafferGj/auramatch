@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AuraMatch — Secret Phone Number Matchmaker</title>
+    <title>AuraMatch — Global Secret Phone Matchmaker</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -42,7 +42,7 @@
             <h1 class="text-xl font-extrabold tracking-tight bg-gradient-to-r from-white via-slate-200 to-slate-400 bg-clip-text text-transparent">AuraMatch</h1>
         </div>
         <div class="text-xs px-3.5 py-1.5 rounded-full bg-slate-900/90 border border-slate-800 text-rose-400 font-semibold flex items-center gap-2 shadow-inner">
-            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span> Phone Verified 📱
+            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span> Global 🌍
         </div>
     </header>
 
@@ -51,24 +51,54 @@
         
         <div class="text-center mb-6">
             <div class="inline-block mb-3 px-3 py-1 rounded-full bg-rose-500/10 border border-rose-500/20 text-rose-300 text-xs font-semibold tracking-wide uppercase">
-                100% Real Phone Number Match
+                International Auto-Dialing
             </div>
             <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight mb-2 text-white">Direct WhatsApp Match</h2>
-            <p class="text-slate-400 text-sm max-w-sm mx-auto leading-relaxed">Enter your phone number and your crush's number. Generate a secure match link to send to them.</p>
+            <p class="text-slate-400 text-sm max-w-sm mx-auto leading-relaxed">Select your country, enter your local phone number, and lock your crush in the vault.</p>
         </div>
 
         <div class="glass-card rounded-3xl p-6 sm:p-8 relative overflow-hidden">
             <div class="glow-bg"></div>
             
             <form id="matchForm" onsubmit="handlePhoneMatch(event)" class="space-y-4 relative z-10">
+                <!-- My Phone Group -->
                 <div>
-                    <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Your Mobile / WhatsApp Number</label>
-                    <input type="tel" id="myPhone" required placeholder="e.g. +91 9876543210" class="w-full px-4 py-3.5 rounded-xl bg-slate-900/90 border border-slate-800 text-white placeholder-slate-600 focus:outline-none focus:border-rose-500 focus:ring-1 focus:ring-rose-500 transition text-sm">
+                    <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Your Mobile Number</label>
+                    <div class="flex space-x-2">
+                        <select id="myCountry" class="w-28 px-2 py-3.5 rounded-xl bg-slate-900/90 border border-slate-800 text-white focus:outline-none focus:border-rose-500 text-xs font-medium">
+                            <option value="+91">🇮🇳 +91 (IN)</option>
+                            <option value="+1">🇺🇸 +1 (US/CA)</option>
+                            <option value="+44">🇬🇧 +44 (UK)</option>
+                            <option value="+971">🇦🇪 +971 (UAE)</option>
+                            <option value="+61">🇦🇺 +61 (AU)</option>
+                            <option value="+49">🇩🇪 +49 (DE)</option>
+                            <option value="+33">🇫🇷 +33 (FR)</option>
+                            <option value="+81">🇯🇵 +81 (JP)</option>
+                            <option value="+55">🇧🇷 +55 (BR)</option>
+                            <option value="+52">🇲🇽 +52 (MX)</option>
+                        </select>
+                        <input type="tel" id="myPhone" required placeholder="9876543210" class="w-full px-4 py-3.5 rounded-xl bg-slate-900/90 border border-slate-800 text-white placeholder-slate-600 focus:outline-none focus:border-rose-500 transition text-sm">
+                    </div>
                 </div>
 
+                <!-- Crush Phone Group -->
                 <div>
-                    <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Your Crush's Mobile / WhatsApp Number</label>
-                    <input type="tel" id="crushPhone" required placeholder="e.g. +91 9123456789" class="w-full px-4 py-3.5 rounded-xl bg-slate-900/90 border border-slate-800 text-white placeholder-slate-600 focus:outline-none focus:border-rose-500 focus:ring-1 focus:ring-rose-500 transition text-sm">
+                    <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Your Crush's Mobile Number</label>
+                    <div class="flex space-x-2">
+                        <select id="crushCountry" class="w-28 px-2 py-3.5 rounded-xl bg-slate-900/90 border border-slate-800 text-white focus:outline-none focus:border-rose-500 text-xs font-medium">
+                            <option value="+91">🇮🇳 +91 (IN)</option>
+                            <option value="+1">🇺🇸 +1 (US/CA)</option>
+                            <option value="+44">🇬🇧 +44 (UK)</option>
+                            <option value="+971">🇦🇪 +971 (UAE)</option>
+                            <option value="+61">🇦🇺 +61 (AU)</option>
+                            <option value="+49">🇩🇪 +49 (DE)</option>
+                            <option value="+33">🇫🇷 +33 (FR)</option>
+                            <option value="+81">🇯🇵 +81 (JP)</option>
+                            <option value="+55">🇧🇷 +55 (BR)</option>
+                            <option value="+52">🇲🇽 +52 (MX)</option>
+                        </select>
+                        <input type="tel" id="crushPhone" required placeholder="9123456789" class="w-full px-4 py-3.5 rounded-xl bg-slate-900/90 border border-slate-800 text-white placeholder-slate-600 focus:outline-none focus:border-rose-500 transition text-sm">
+                    </div>
                 </div>
 
                 <button type="submit" id="submitBtn" class="w-full py-4 rounded-xl bg-gradient-to-r from-rose-500 via-pink-500 to-purple-600 hover:opacity-95 font-bold text-white shadow-xl shadow-rose-500/25 transition-all transform active:scale-[0.98] text-sm tracking-wide">
@@ -79,8 +109,8 @@
             <!-- Success Box -->
             <div id="viralBox" class="hidden mt-6 p-5 rounded-2xl bg-rose-500/10 border border-rose-500/20 text-center relative z-10 space-y-4">
                 <div class="inline-flex p-2 bg-rose-500/20 text-rose-400 rounded-full text-xl">✨📱💖</div>
-                <h3 class="text-base font-extrabold text-rose-200">Match Link Generated Successfully!</h3>
-                <p class="text-xs text-slate-300 leading-relaxed">Send this link to your crush on WhatsApp. When they open it, they will instantly see that <b>you</b> matched with them:</p>
+                <h3 class="text-base font-extrabold text-rose-200">Match Link Generated!</h3>
+                <p class="text-xs text-slate-300 leading-relaxed">Send this link to your crush on WhatsApp. When they open it, they will instantly see that you matched:</p>
                 
                 <div class="flex items-center space-x-2 pt-1">
                     <input type="text" id="shareLinkBox" readonly class="w-full bg-slate-900 border border-slate-800 text-slate-400 text-xs px-3 py-2.5 rounded-lg font-mono select-all" value="">
@@ -90,7 +120,7 @@
                 </div>
             </div>
 
-            <!-- Crush View Box (Appears automatically if someone opens your link) -->
+            <!-- Crush View Box -->
             <div id="crushViewBox" class="hidden mt-4 p-5 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-center relative z-10 space-y-4">
                 <div class="text-3xl">👑🧚‍♂️</div>
                 <h3 class="text-base font-extrabold text-emerald-200">Someone has a secret crush on you!</h3>
@@ -105,23 +135,20 @@
 
     <!-- Footer -->
     <footer class="w-full p-6 text-center text-slate-600 text-xs relative z-10">
-        <p>&copy; 2026 AuraMatch Global. Direct Phone Verification.</p>
+        <p>&copy; 2026 AuraMatch Global. Smart International Dialing.</p>
     </footer>
 
     <script>
         window.addEventListener('DOMContentLoaded', () => {
             const urlParams = new URLSearchParams(window.location.search);
             const sender = urlParams.get('sender');
-            const target = urlParams.get('target');
 
-            if(sender && target) {
-                // Hide the input form, show the crush revelation view
+            if(sender) {
                 document.getElementById('matchForm').classList.add('hidden');
                 document.getElementById('crushViewBox').classList.remove('hidden');
                 
                 document.getElementById('displaySenderPhone').innerText = sender;
                 
-                // Construct direct WhatsApp chat link
                 const cleanPhone = sender.replace(/[^0-9]/g, '');
                 const waMessage = encodeURIComponent("Hey! I saw your AuraMatch secret crush link. Let's talk! ✨");
                 document.getElementById('whatsappBtn').href = `https://wa.me/${cleanPhone}?text=${waMessage}`;
@@ -132,20 +159,25 @@
 
         function handlePhoneMatch(e) {
             e.preventDefault();
-            const myPhone = document.getElementById('myPhone').value.trim();
-            const crushPhone = document.getElementById('crushPhone').value.trim();
+            const myCountry = document.getElementById('myCountry').value;
+            const myLocalPhone = document.getElementById('myPhone').value.trim();
+            const crushCountry = document.getElementById('crushCountry').value;
+            const crushLocalPhone = document.getElementById('crushPhone').value.trim();
+            
             const btn = document.getElementById('submitBtn');
             const viralBox = document.getElementById('viralBox');
             
             btn.disabled = true;
-            btn.innerText = "Encoding Secure Phone Link...";
+            btn.innerText = "Encoding Global Link...";
 
             setTimeout(() => {
                 btn.innerText = "Link Ready ✅";
                 viralBox.classList.remove('hidden');
                 
-                // Build a smart URL embedding both phone numbers safely
-                const encodedLink = `${window.location.origin}${window.location.pathname}?sender=${encodeURIComponent(myPhone)}&target=${encodeURIComponent(crushPhone)}`;
+                const fullMyNumber = myCountry + myLocalPhone;
+                const fullCrushNumber = crushCountry + crushLocalPhone;
+                
+                const encodedLink = `${window.location.origin}${window.location.pathname}?sender=${encodeURIComponent(fullMyNumber)}&target=${encodeURIComponent(fullCrushNumber)}`;
                 document.getElementById('shareLinkBox').value = encodedLink;
                 
                 confetti({ particleCount: 80, spread: 60, origin: { y: 0.6 } });
@@ -156,7 +188,7 @@
             const copyText = document.getElementById('shareLinkBox');
             copyText.select();
             navigator.clipboard.writeText(copyText.value);
-            alert("✨ Link copied! Send it directly to your crush on WhatsApp. When they open it, they will see your number and a button to text you back!");
+            alert("✨ Link copied! Send it to your crush on WhatsApp.");
         }
     </script>
 </body>
