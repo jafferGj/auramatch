@@ -3,18 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AuraMatch — The Zero-Risk Secret Crush Vault</title>
+    <title>AuraMatch — Secret Crush & Fairy Matchmaker</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #030712; color: #f8fafc; }
         .glass-card {
-            background: rgba(17, 24, 39, 0.7);
+            background: rgba(17, 24, 39, 0.75);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
         }
         .glow-bg {
             position: absolute;
@@ -26,11 +26,16 @@
             z-index: 0;
             pointer-events: none;
         }
+        @keyframes holdHands {
+            0% { transform: scale(0.8) translateY(20px); opacity: 0; }
+            100% { transform: scale(1) translateY(0); opacity: 1; }
+        }
+        .animate-handshake { animation: holdHands 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
     </style>
 </head>
 <body class="min-h-screen flex flex-col justify-between selection:bg-rose-500 selection:text-white relative overflow-x-hidden">
 
-    <!-- Ambient Background Glows -->
+    <!-- Ambient Glows -->
     <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-96 bg-gradient-to-b from-rose-500/10 via-purple-500/5 to-transparent blur-3xl pointer-events-none"></div>
 
     <!-- Header -->
@@ -46,28 +51,28 @@
         </div>
     </header>
 
-    <!-- Main Section -->
+    <!-- Main Content -->
     <main class="w-full max-w-lg mx-auto px-5 py-2 flex-grow flex flex-col justify-center relative z-10">
-        <div class="text-center mb-8">
+        <div class="text-center mb-6">
             <div class="inline-block mb-3 px-3 py-1 rounded-full bg-rose-500/10 border border-rose-500/20 text-rose-300 text-xs font-semibold tracking-wide uppercase">
-                Zero Risk • Total Anonymity
+                WhatsApp • Instagram • Snapchat
             </div>
-            <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight mb-3 text-white">Does your crush like you back?</h2>
-            <p class="text-slate-400 text-sm max-w-sm mx-auto leading-relaxed">Drop their handle below. If they drop yours too, the vault unlocks instantly. Zero awkwardness if it's unrequited.</p>
+            <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight mb-2 text-white">Find Your Secret Match</h2>
+            <p class="text-slate-400 text-sm max-w-sm mx-auto leading-relaxed">Lock your crush into the secure vault. If the stars align, your fairy & prince characters will join hands.</p>
         </div>
 
         <!-- Glassmorphism Card -->
         <div class="glass-card rounded-3xl p-6 sm:p-8 relative overflow-hidden">
             <div class="glow-bg"></div>
             
-            <form id="matchForm" onsubmit="handleVaultEntry(event)" class="space-y-5 relative z-10">
-                <!-- Verified User Identifier -->
+            <form id="matchForm" onsubmit="handleVaultEntry(event)" class="space-y-4 relative z-10">
+                <!-- User Identity Section -->
                 <div class="p-3.5 rounded-2xl bg-slate-900/80 border border-slate-800/80 flex items-center justify-between">
                     <div class="flex items-center space-x-3">
                         <div class="w-8 h-8 rounded-full bg-emerald-500/10 text-emerald-400 flex items-center justify-center font-bold text-xs">🛡️</div>
                         <div>
-                            <span class="block text-[10px] uppercase tracking-wider text-slate-500 font-bold">Your Secure Node</span>
-                            <span id="userNodeText" class="text-xs font-bold text-slate-200 font-mono">Generating secure hash...</span>
+                            <span class="block text-[10px] uppercase tracking-wider text-slate-500 font-bold">Your Active Identity</span>
+                            <span id="userNodeText" class="text-xs font-bold text-slate-200 font-mono">Loading node...</span>
                         </div>
                     </div>
                     <button type="button" onclick="customizeNode()" class="text-[11px] px-2.5 py-1 rounded-lg bg-slate-800 text-slate-300 font-medium hover:bg-slate-700 transition">
@@ -75,12 +80,10 @@
                     </button>
                 </div>
 
+                <!-- Crush Input -->
                 <div>
-                    <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Your Crush's IG Handle / Phone / Snap</label>
-                    <div class="relative">
-                        <span class="absolute inset-y-0 left-0 pl-4 flex items-center text-slate-500 text-sm">@</span>
-                        <input type="text" id="crushInput" required placeholder="crush_username" class="w-full pl-9 pr-4 py-3.5 rounded-xl bg-slate-900/90 border border-slate-800 text-white placeholder-slate-600 focus:outline-none focus:border-rose-500 focus:ring-1 focus:ring-rose-500 transition text-sm">
-                    </div>
+                    <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Crush's WhatsApp, IG, or Snap</label>
+                    <input type="text" id="crushInput" required placeholder="e.g. +91 98765... or @username" class="w-full px-4 py-3.5 rounded-xl bg-slate-900/90 border border-slate-800 text-white placeholder-slate-600 focus:outline-none focus:border-rose-500 focus:ring-1 focus:ring-rose-500 transition text-sm">
                 </div>
 
                 <button type="submit" id="submitBtn" class="w-full py-4 rounded-xl bg-gradient-to-r from-rose-500 via-pink-500 to-purple-600 hover:opacity-95 font-bold text-white shadow-xl shadow-rose-500/25 transition-all transform active:scale-[0.98] text-sm tracking-wide">
@@ -88,14 +91,33 @@
                 </button>
             </form>
 
-            <!-- Success / Viral Share Box (Hidden by default) -->
-            <div id="viralBox" class="hidden mt-6 p-5 rounded-2xl bg-rose-500/10 border border-rose-500/20 text-center relative z-10 space-y-3">
-                <div class="inline-flex p-2 bg-rose-500/20 text-rose-400 rounded-full text-lg mb-1">✨</div>
-                <h3 class="text-sm font-bold text-rose-200">Successfully Logged in Cryptographic Vault!</h3>
-                <p class="text-xs text-slate-300 leading-relaxed">Your crush's node is locked. To make them match faster, share your personal invite link on your IG Story or WhatsApp status:</p>
+            <!-- Success / Fairy & Prince Match Box (Hidden by default) -->
+            <div id="viralBox" class="hidden mt-6 p-5 rounded-2xl bg-rose-500/10 border border-rose-500/20 text-center relative z-10 space-y-4 animate-handshake">
+                <div class="inline-flex p-2 bg-rose-500/20 text-rose-400 rounded-full text-xl">✨👑🧚‍♂️</div>
+                <h3 class="text-base font-extrabold text-rose-200">Cryptographic Vault Locked!</h3>
+                
+                <!-- Dynamic Character Generation Display -->
+                <div class="grid grid-cols-2 gap-2 text-left bg-slate-900/90 p-3 rounded-xl border border-slate-800">
+                    <div class="p-2 rounded-lg bg-slate-950/50">
+                        <span class="text-[9px] uppercase tracking-wider text-rose-400 font-bold block">Your Character</span>
+                        <span id="charOne" class="text-xs font-bold text-slate-200">Prince of Starlight</span>
+                    </div>
+                    <div class="p-2 rounded-lg bg-slate-950/50">
+                        <span class="text-[9px] uppercase tracking-wider text-pink-400 font-bold block">Crush Character</span>
+                        <span id="charTwo" class="text-xs font-bold text-slate-200">Fairy of Moonmist</span>
+                    </div>
+                </div>
+
+                <!-- Fairy & Prince Handshake Visual Animation -->
+                <div class="py-3 flex items-center justify-center space-x-4">
+                    <div class="text-3xl animate-bounce">🧚‍♀️</div>
+                    <div class="text-rose-400 font-bold text-lg animate-pulse">🤝 (Joining Hands)</div>
+                    <div class="text-3xl animate-bounce" style="animation-delay: 0.2s;">🤴</div>
+                </div>
+                <p class="text-xs text-slate-300 leading-relaxed">Share your unique link below so your crush can open the vault and complete the connection:</p>
                 
                 <div class="flex items-center space-x-2 pt-1">
-                    <input type="text" id="shareLinkBox" readonly class="w-full bg-slate-900 border border-slate-800 text-slate-400 text-xs px-3 py-2.5 rounded-lg font-mono select-all" value="https://auramatch.vercel.app">
+                    <input type="text" id="shareLinkBox" readonly class="w-full bg-slate-900 border border-slate-800 text-slate-400 text-xs px-3 py-2.5 rounded-lg font-mono select-all" value="">
                     <button onclick="copyShareLink()" class="px-4 py-2.5 bg-rose-500 hover:bg-rose-600 text-white font-bold text-xs rounded-lg transition whitespace-nowrap shadow-md shadow-rose-500/20">
                         Copy Link 🔗
                     </button>
@@ -106,11 +128,13 @@
 
     <!-- Footer -->
     <footer class="w-full p-6 text-center text-slate-600 text-xs relative z-10">
-        <p>&copy; 2026 AuraMatch Global. Built for secure youth connections.</p>
+        <p>&copy; 2026 AuraMatch Global. Secure Youth Connections.</p>
     </footer>
 
     <script>
-        // Generate anonymous user session node on load
+        const fairyTitles = ["Starlight Fairy", "Moonmist Sprite", "Celestial Blossom", "Crystal Nymph", "Aura Guardian"];
+        const princeTitles = ["Valiant Prince", "Solar Knight", "Mystic Wanderer", "Kingdom Duke", "Celestial Sovereign of Realms"];
+
         window.addEventListener('DOMContentLoaded', () => {
             const storedNode = localStorage.getItem('auramatch_node');
             if(storedNode) {
@@ -124,9 +148,9 @@
         });
 
         function customizeNode() {
-            const custom = prompt("Enter your personal handle or phone so your crush can match you:");
+            const custom = prompt("Enter your WhatsApp number, Instagram handle, or Snapchat ID:");
             if(custom && custom.trim() !== "") {
-                const formatted = custom.startsWith('@') ? custom : '@' + custom;
+                const formatted = custom.includes('@') || custom.startsWith('+') ? custom : '@' + custom;
                 localStorage.setItem('auramatch_node', formatted);
                 document.getElementById('userNodeText').innerText = formatted;
             }
@@ -138,15 +162,23 @@
             const viralBox = document.getElementById('viralBox');
             
             btn.disabled = true;
-            btn.innerText = "Encrypting & Syncing Vault...";
+            btn.innerText = "Encrypting & Summoning Characters...";
 
             setTimeout(() => {
+                // Generate unique characters dynamically every time
+                const randFairy = fairyTitles[Math.floor(Math.random() * fairyTitles.length)];
+                const randPrince = princeTitles[Math.floor(Math.random() * princeTitles.length)];
+                
+                document.getElementById('charOne').innerText = randPrince;
+                document.getElementById('charTwo').innerText = randFairy;
+
                 btn.innerText = "Locked in Vault Successfully ✅";
                 viralBox.classList.remove('hidden');
+                
                 confetti({
-                    particleCount: 100,
-                    spread: 70,
-                    origin: { y: 0.7 }
+                    particleCount: 120,
+                    spread: 80,
+                    origin: { y: 0.6 }
                 });
             }, 1200);
         }
@@ -156,7 +188,7 @@
             copyText.select();
             copyText.setSelectionRange(0, 99999);
             navigator.clipboard.writeText(copyText.value);
-            alert("✨ Link copied! Share it on your story or group chats so your crush can match back.");
+            alert("✨ Link copied! Share it on WhatsApp or Instagram so your crush can join hands with your character.");
         }
     </script>
 </body>
