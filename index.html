@@ -26,6 +26,11 @@
             z-index: 0;
             pointer-events: none;
         }
+        @keyframes holdHands {
+            0% { transform: scale(0.8) translateY(20px); opacity: 0; }
+            100% { transform: scale(1) translateY(0); opacity: 1; }
+        }
+        .animate-handshake { animation: holdHands 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
     </style>
 </head>
 <body class="min-h-screen flex flex-col justify-between selection:bg-rose-500 selection:text-white relative overflow-x-hidden">
@@ -120,12 +125,31 @@
                 </div>
             </div>
 
-            <!-- Crush View Box -->
-            <div id="crushViewBox" class="hidden mt-4 p-5 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-center relative z-10 space-y-4">
+            <!-- Crush View Box with Fairy & Prince Handshake Animation -->
+            <div id="crushViewBox" class="hidden mt-4 p-5 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-center relative z-10 space-y-4 animate-handshake">
                 <div class="text-3xl">👑🧚‍♂️</div>
                 <h3 class="text-base font-extrabold text-emerald-200">Someone has a secret crush on you!</h3>
                 <p class="text-xs text-slate-300">A secret admirer with phone number <span id="displaySenderPhone" class="font-mono text-emerald-400 font-bold"></span> locked you in their vault.</p>
                 
+                <!-- Dynamic Character Generation Display -->
+                <div class="grid grid-cols-2 gap-2 text-left bg-slate-900/90 p-3 rounded-xl border border-slate-800">
+                    <div class="p-2 rounded-lg bg-slate-950/50">
+                        <span class="text-[9px] uppercase tracking-wider text-rose-400 font-bold block">Admirer Character</span>
+                        <span id="charOne" class="text-xs font-bold text-slate-200">Prince of Starlight</span>
+                    </div>
+                    <div class="p-2 rounded-lg bg-slate-950/50">
+                        <span class="text-[9px] uppercase tracking-wider text-pink-400 font-bold block">Your Character</span>
+                        <span id="charTwo" class="text-xs font-bold text-slate-200">Fairy of Moonmist</span>
+                    </div>
+                </div>
+
+                <!-- Fairy & Prince Handshake Visual Animation -->
+                <div class="py-2 flex items-center justify-center space-x-3">
+                    <div class="text-3xl animate-bounce">🧚‍♀️</div>
+                    <div class="text-rose-400 font-bold text-sm animate-pulse">🤝 (Joining Hands)</div>
+                    <div class="text-3xl animate-bounce" style="animation-delay: 0.2s;">🤴</div>
+                </div>
+
                 <a id="whatsappBtn" href="#" target="_blank" class="block w-full py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 font-bold text-white text-xs transition shadow-lg shadow-emerald-600/20">
                     Chat on WhatsApp Now ✨
                 </a>
@@ -139,6 +163,9 @@
     </footer>
 
     <script>
+        const fairyTitles = ["Starlight Fairy", "Moonmist Sprite", "Celestial Blossom", "Crystal Nymph", "Aura Guardian"];
+        const princeTitles = ["Valiant Prince", "Solar Knight", "Mystic Wanderer", "Kingdom Duke", "Celestial Sovereign"];
+
         window.addEventListener('DOMContentLoaded', () => {
             const urlParams = new URLSearchParams(window.location.search);
             const sender = urlParams.get('sender');
@@ -149,11 +176,15 @@
                 
                 document.getElementById('displaySenderPhone').innerText = sender;
                 
+                // Assign unique characters
+                document.getElementById('charOne').innerText = princeTitles[Math.floor(Math.random() * princeTitles.length)];
+                document.getElementById('charTwo').innerText = fairyTitles[Math.floor(Math.random() * fairyTitles.length)];
+
                 const cleanPhone = sender.replace(/[^0-9]/g, '');
                 const waMessage = encodeURIComponent("Hey! I saw your AuraMatch secret crush link. Let's talk! ✨");
                 document.getElementById('whatsappBtn').href = `https://wa.me/${cleanPhone}?text=${waMessage}`;
                 
-                confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+                confetti({ particleCount: 120, spread: 80, origin: { y: 0.6 } });
             }
         });
 
